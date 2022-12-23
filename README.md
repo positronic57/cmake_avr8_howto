@@ -74,6 +74,9 @@ Start the build:
 ```
 This will create two object files in the build folder: .elf and the firmware file .hex.
 
+## Translations
+- [Macedonian version of this text](translations/README_mk.md)
+
 ## WARNING:
 The source is provided as is without any warranty. Use it on your own risk!
 The author does not take any responsibility for the damage caused while using this software.
