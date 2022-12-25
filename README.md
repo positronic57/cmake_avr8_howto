@@ -41,6 +41,8 @@ set(CMAKE_C_FLAGS ${FLAGS} CACHE STRING "" FORCE)
 ### CMakeLists.txt File For Building The Project
 
 This is a standard CMake configuration file that tells CMake how to build the project. The content is no different that any other _CMakeLists.txt_ file for building C/C++project.
+Additional example(s) for CMakeLists.txt can be found in _examples_ folder of this repository:
+- CMakeLists_static_lib.txt shows CMakeLists.txt for building a static library for AVR8 MCU.   
 
 #### Firmware File in Intel HEX format
 
