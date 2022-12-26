@@ -1,22 +1,21 @@
 ##########################################################
 #
-# Created: 25-Dec-2022
+# Created: 26-Dec-2022
 # Author: Goce Boshkovski
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License.
 #
-#
-# Example CMakeLists.txt file for building a static library
-# for AVR8 MCUs with CMake.
+# Example CMakeLists.txt file for linking the binary with a static
+# library.
 #
 ##########################################################
 
 cmake_minimum_required(VERSION 3.1)
 
 # Define the project name
-project(libDS18S20)
+project(DS18S20example1)
 
 # Show the compiler commands during the build 
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -25,23 +24,36 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(MCU "atmega32" CACHE STRING "Target micro-controller with default value atmega32")
 set(CPU_FREQ "16000000L" CACHE STRING "MCU CPU frequency")
 
+# Define linker options
+add_link_options(-mmcu=${MCU} -Wl,-Map=${PROJECT_NAME}.map)
+
 # Define the extra include directories here
-#include_directories(/usr/local/include/avr8)
+include_directories(/usr/local/include/avr8)
+
+# Add library path
+link_directories(/usr/local/lib/avr8/${MCU})
 
 # Add mmcu as compiler option
 add_compile_options(-mmcu=${MCU})
 
-# Define linker options
-add_link_options(-mmcu=${MCU} -Wl,-Map=${PROJECT_NAME}.map)
-
 # Define the F_CPU macro required for some avr-libc functions
 add_definitions(-DF_CPU=${CPU_FREQ})
 
-# Define the list of source files
+# Define the list of source files.
 set (SOURCE_LIST
-ds18S20.c
+DS18S20example1.c
+UART.c
 )
 
-# Build the project as a static library
-add_library(DS18S20  STATIC ${SOURCE_LIST})
+# Define the binary  
+add_executable(${PROJECT_NAME}.elf ${SOURCE_LIST})
 
+# Link the binary with the static library libDS18S20.a
+target_link_libraries(${PROJECT_NAME}.elf DS18S20)
+
+# Post build step for generating the firware in Intel HEX format
+add_custom_command(
+    TARGET ${PROJECT_NAME}.elf
+    POST_BUILD
+    COMMAND avr-objcopy -j .text -j .data -O ihex ${PROJECT_NAME}.elf ${PROJECT_NAME}.hex 
+)

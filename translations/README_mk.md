@@ -45,7 +45,8 @@ set(CMAKE_C_FLAGS ${FLAGS} CACHE STRING "" FORCE)
 
 Станува збор за стандарден CMake конфигурациски фајл кој по ништо не се разликува од истиот таков фајл за превод на C/C++ код на PC платформа со gcc/g++ преведувач.
 Дополнителен урнек(ци) за CMakeLists.txt можат да се најадт во папката _examples_:
-- CMakeLists_static_lib.txt претставува пример за CMakeLists.txt наменет за креирање на библиотека за AVR8 MCU.   
+- [CMakeLists_static_lib.txt](examples/CMakeLists_static_lib.txt) претставува пример за CMakeLists.txt наменет за креирање на библиотека за AVR8 MCU;
+- [CMakeLists_link_with_static_lib.txt](examples/CMakeLists_link_with_static_lib.txt) е пример за поврзување на проектот со статична библиотека.
 
 #### Firmware фајл во Intel HEX формат
 

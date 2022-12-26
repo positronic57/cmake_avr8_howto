@@ -24,6 +24,9 @@ set(CPU_FREQ "16000000L" CACHE STRING "MCU CPU frequency")
 # Define the extra include directories here
 #include_directories(/usr/local/include/avr8)
 
+# Define linker options
+add_link_options(-mmcu=${MCU} -Wl,-Map=${PROJECT_NAME}.map)
+
 # Add mmcu as compiler option
 add_compile_options(-mmcu=${MCU})
 
