@@ -1,7 +1,7 @@
 ########################################################
 #
-# A tool chain CMake file for cross-platform build of C/C++ source
-# for AVR8  MCUs using avr-gcc.
+# CMake toolchain file for cross-platform build of C/C++ source
+# for AVR8  MCUs using CNU avr-gcc and avr-g++ compilers.
 #
 # Created: 22-Dec-2022
 # Author: Goce Boshkovski
@@ -12,10 +12,11 @@
 #
 ########################################################
 
+set(MICROCHIP_XC8_COMPILER OFF CACHE BOOL "ON if Micorchip XC8 compiler defined in the toolchain file. OFF otherwise")
 
 set(CMAKE_SYSTEM_NAME Generic)
 
-# Specify the AVR8 compiler
+# Specify GNU avr-gcc as AVR8 compiler
 set(CMAKE_C_COMPILER   /usr/bin/avr-gcc)
 set(CMAKE_CXX_COMPILER /usr/bin/avr-g++)
 

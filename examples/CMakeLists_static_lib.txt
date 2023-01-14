@@ -9,7 +9,8 @@
 #
 #
 # Example CMakeLists.txt file for building a static library
-# for AVR8 MCUs with CMake.
+# for AVR8 MCUs with CMake and toolchain files for both GNU avr-gcc and
+# Microchip XC8 compiler.
 #
 ##########################################################
 
@@ -28,11 +29,17 @@ set(CPU_FREQ "16000000L" CACHE STRING "MCU CPU frequency")
 # Define the extra include directories here
 #include_directories(/usr/local/include/avr8)
 
-# Add mmcu as compiler option
-add_compile_options(-mmcu=${MCU})
+if (NOT MICROCHIP_XC8_COMPILER)
+  # Define linker options
+  add_link_options(-mmcu=${MCU} -Wl,-Map=${PROJECT_NAME}.map)
 
-# Define linker options
-add_link_options(-mmcu=${MCU} -Wl,-Map=${PROJECT_NAME}.map)
+  # Add mmcu as compiler option
+  add_compile_options(-mmcu=${MCU})
+else()
+  # Microchip XC8 compiler	
+  # Do not append -mmcu to linker options, aready done in toolchain file
+  add_link_options(-Wl,-Map=${PROJECT_NAME}.map)
+endif()
 
 # Define the F_CPU macro required for some avr-libc functions
 add_definitions(-DF_CPU=${CPU_FREQ})
